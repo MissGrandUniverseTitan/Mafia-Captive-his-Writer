@@ -34,6 +34,8 @@ Wan 2.2 ทำได้ **ครั้งละ 1 ช็อต (~5 วินา�
 - **Keyframe:** `Damian crouches behind the green dumpster in ALLEY, peeking out with excited eyes, holding a small notebook, medium shot from the side. STYLE`
 - **Motion:** `Static camera. The young man hides behind the dumpster, peeks out and whispers to himself with a small excited smile, his breath visible in the cold air`
 - **🎙 Damian (กระซิบ):** "This is perfect for my book."
+- ✅ **Rendered** — keyframe: `S1-2_keyframe.png` (Qwen Image Edit 2509, 944×1104) · Wan 2.2 I2V 480×560, 5.0s, turbo on · **noise_seed `358075559139979`**
+  - Motion prompt ที่ใช้จริง: `Static camera. The young man hides behind the dumpster, peeks out and thinking to himself with a very small excited smile (keep this secret with himself) Just smil not push any action only stare in his front, his breath visible in the cold air, steam drifts slowly`
 
 ### S1-3 · Static shot
 - **Refs:** image 2 = kairo_full_front
