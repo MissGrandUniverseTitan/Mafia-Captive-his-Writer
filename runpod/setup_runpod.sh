@@ -66,6 +66,17 @@ if [[ "${WITH_QWEN_EDIT:-0}" == "1" ]]; then
   )
 fi
 
+# Qwen-Image (text-to-image, +~20GB) สำหรับใช้คู่กับ character LoRA: WITH_QWEN_IMAGE=1 bash setup_runpod.sh
+if [[ "${WITH_QWEN_IMAGE:-0}" == "1" ]]; then
+  QHF=https://huggingface.co/Comfy-Org
+  URLS+=(
+    "diffusion_models/qwen_image_fp8_e4m3fn.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors"
+    "text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors"
+    "vae/qwen_image_vae.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors"
+    "loras/Qwen-Image-Lightning-8steps-V1.1.safetensors|https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors"
+  )
+fi
+
 failed=()
 for entry in "${URLS[@]}"; do
   f="${entry%%|*}"; url="${entry#*|}"
