@@ -3,9 +3,9 @@
 
 รันบน RunPod (เครื่องเดียวกับ ComfyUI) ใช้แค่ Python standard library
 
-เตรียมครั้งแรก: ใน ComfyUI เปิด workflow แต่ละตัวแล้วกด Workflow > Export (API)
-  - Qwen Image Edit 2509  -> /workspace/workflows/qwen_edit_api.json
-  - Wan 2.2 14B I2V       -> /workspace/workflows/wan_i2v_api.json
+เตรียมครั้งแรก: กด Run workflow Qwen Image Edit 2509 และ Wan 2.2 I2V ใน ComfyUI อย่างละ 1 ครั้ง
+สคริปต์จะดึง workflow จากประวัติงานมาเก็บไว้ที่ /workspace/workflows/ ให้เอง
+(หรือ export เองด้วย Export (API) แล้ววางไว้ที่ qwen_edit_api.json / wan_i2v_api.json)
 
 ตัวอย่าง:
   python3 render_shots.py ../episodes/ep01_scene1.json                 # keyframe + วิดีโอ ทุกช็อต
@@ -63,6 +63,23 @@ def wait(prompt_id, label):
         time.sleep(3)
 
 
+def load_workflow(filename, marker):
+    """โหลด workflow แบบ API จากไฟล์ ถ้าไม่มีให้ดึงจากประวัติงานล่าสุดของ ComfyUI ที่มี node `marker`"""
+    path = WORKFLOW_DIR / filename
+    if path.exists():
+        return json.loads(path.read_text())
+    with urllib.request.urlopen(f"{COMFY}/history?max_items=500") as resp:
+        hist = json.load(resp)
+    for entry in reversed(list(hist.values())):
+        wf = entry["prompt"][2]
+        if any(n.get("class_type") == marker for n in wf.values()):
+            WORKFLOW_DIR.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(wf, indent=1))
+            print(f"  ดึง workflow จากประวัติ ComfyUI -> {path}")
+            return wf
+    sys.exit(f"ไม่มี {path} และไม่เจองาน {marker} ในประวัติ — กด Run workflow นั้นใน ComfyUI สัก 1 ครั้งก่อน")
+
+
 # ---------- ค้นหา node ใน workflow แบบ API ----------
 
 def nodes_of(wf, *class_types):
@@ -92,7 +109,7 @@ def consumers(wf, nid):
 
 
 def set_output_prefix(wf, prefix):
-    outs = nodes_of(wf, "SaveImage", "SaveVideo", "VHS_VideoCombine", "SaveAnimatedWEBP")
+    outs = [nid for nid, n in wf.items() if "filename_prefix" in n.get("inputs", {})]
     if not outs:
         sys.exit("ไม่เจอ node สำหรับบันทึกผลลัพธ์ใน workflow")
     for nid in outs:
@@ -181,7 +198,7 @@ def main():
     log_path = COMFY_DIR / "output" / spec["episode"] / "render_log.csv"
 
     if args.stage in ("all", "keyframe"):
-        qwen = json.loads((WORKFLOW_DIR / "qwen_edit_api.json").read_text())
+        qwen = load_workflow("qwen_edit_api.json", "TextEncodeQwenImageEditPlus")
         print("== Keyframes (Qwen Image Edit) ==")
         for s in shots:
             name = f"{s['id']}_keyframe.png"
@@ -195,7 +212,7 @@ def main():
             print(f"    -> input/{name}")
 
     if args.stage in ("all", "video"):
-        wan = json.loads((WORKFLOW_DIR / "wan_i2v_api.json").read_text())
+        wan = load_workflow("wan_i2v_api.json", "WanImageToVideo")
         print("== Videos (Wan 2.2 I2V) ==")
         log_path.parent.mkdir(parents=True, exist_ok=True)
         new_log = not log_path.exists()
