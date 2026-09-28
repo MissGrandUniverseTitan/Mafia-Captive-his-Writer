@@ -10,10 +10,11 @@
     {
       "id": "S1-1",
       "refs": [
-        "damian_full_back.png",
-        "S1-2_keyframe.png"
+        "damian_face_profile.png",
+        "S1-2_keyframe.png",
+        "damian_full_back.png"
       ],
-      "keyframe_prompt": "The young man from image 1 walks cautiously into the alley from image 2, seen from behind at shoulder height, body slightly hunched, glancing to the side. Keep his wavy blond hair and beige trench coat exactly the same as image 1",
+      "keyframe_prompt": "The young man from image 1 (voluminous tousled wavy dirty-blond hair, ear-length messy curls, fair skin), wearing the beige trench coat from image 3, walks cautiously into the alley from image 2, three-quarter back view from shoulder height so his side profile is visible, body slightly hunched, glancing to the side. Keep his face and his voluminous wavy blond hair exactly the same as image 1",
       "motion_prompt": "The camera tracks slowly behind the young man as he sneaks forward along the wet alley, puddles ripple under his boots, steam drifts"
     },
     {

@@ -15,7 +15,7 @@ Wan 2.2 ทำได้ **ครั้งละ 1 ช็อต (~5 วินา�
 - **ต่อท้าย keyframe prompt ทุกช็อต (STYLE):**
   `vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, rich textures, shot on 35mm film, photorealistic`
 - **สถานที่ (ALLEY):** `a narrow dark alley at night, wet asphalt reflecting cold blue and faint red neon light, grimy brick walls, a green metal dumpster, steam rising from a vent`
-- **Damian:** `the young man from image 1 (wavy blond hair, blue eyes, beige trench coat, cream knit sweater, dark jeans)`
+- **Damian:** `the young man from image 1 (voluminous tousled wavy dirty-blond hair, ear-length messy curls, fair skin, blue eyes, beige trench coat, cream knit sweater, dark jeans)`
 - **Kairo:** `the man from image 2 (messy jet-black hair swept back with loose strands falling over his forehead, warm tan olive skin, thick dark eyebrows, sharp jawline, intense dark eyes, black three-piece suit, black shirt, dark red tie)`
 - **Negative (Wan):** `bright lighting, daytime, cartoon, text, subtitles, watermark, split screen, collage, blurry face, distorted hands, extra limbs`
 
