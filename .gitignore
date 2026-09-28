@@ -1,0 +1,6 @@
+.env
+seedance/.env
+seedance/outputs/
+outputs/
+seedance/usage_log.csv
+__pycache__/
