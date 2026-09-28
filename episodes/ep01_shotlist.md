@@ -16,7 +16,7 @@ Wan 2.2 ทำได้ **ครั้งละ 1 ช็อต (~5 วินา�
   `vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, rich textures, shot on 35mm film, photorealistic`
 - **สถานที่ (ALLEY):** `a narrow dark alley at night, wet asphalt reflecting cold blue and faint red neon light, grimy brick walls, a green metal dumpster, steam rising from a vent`
 - **Damian:** `the young man from image 1 (wavy blond hair, blue eyes, beige trench coat, cream knit sweater, dark jeans)`
-- **Kairo:** `the man from image 2 (slicked black hair, sharp features, black three-piece suit, black shirt, dark red tie)`
+- **Kairo:** `the man from image 2 (messy jet-black hair swept back with loose strands falling over his forehead, warm tan olive skin, thick dark eyebrows, sharp jawline, intense dark eyes, black three-piece suit, black shirt, dark red tie)`
 - **Negative (Wan):** `bright lighting, daytime, cartoon, text, subtitles, watermark, split screen, collage, blurry face, distorted hands, extra limbs`
 
 ภาพอ้างอิงที่ใช้: `damian_full_front.png` / `damian_face_front.png` = image 1, `kairo_full_front.png` / `kairo_face_front.png` = image 2
@@ -39,7 +39,7 @@ Wan 2.2 ทำได้ **ครั้งละ 1 ช็อต (~5 วินา�
   - Motion prompt ที่ใช้จริง: `Static camera. The young man hides behind the dumpster, peeks out and thinking to himself with a very small excited smile (keep this secret with himself) Just smil not push any action only stare in his front, his breath visible in the cold air, steam drifts slowly`
 
 ### S1-3 · Static shot
-- **Refs:** image 2 = kairo_full_front
+- **Refs:** image 1 = kairo_face_front, image 2 = S1-2_keyframe (ตรอก), image 3 = kairo_full_front (ชุด)
 - **Keyframe:** `Kairo stands alone in the middle of ALLEY under a single flickering light, hands in pockets, calm and dangerous, full-body wide shot, slight low angle. STYLE`
 - **Motion:** `Static camera. The man in the black suit stands still, slowly raises his head, the overhead light flickers, steam drifts around his legs`
 
