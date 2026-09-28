@@ -10,9 +10,10 @@ Wan 2.2 ทำได้ **ครั้งละ 1 ช็อต (~5 วินา�
 
 ## ค่าคงที่ (ใส่ทุกช็อตให้ภาพต่อเนื่อง)
 
-- **ขนาด:** 832×480 (16:9) — ถ้าจะทำแนวตั้งใช้ 480×832
+- **ขนาด (Wan):** 480×832 (9:16 แนวตั้ง) — Wan จะครอปกึ่งกลาง keyframe ให้เป็นสัดส่วนนี้เอง จึงควรให้ตัวละครอยู่กลางภาพ
+- **ความต่อเนื่องของฉาก:** ใส่ `S1-2_keyframe.png` เป็นภาพอ้างอิงสถานที่ (image 2 หรือ 3) ทุกช็อตที่อยู่ในตรอก แล้วเขียนว่า `in the alley from image N` — ตรอกจะหน้าตาเดียวกันทุกช็อต
 - **ต่อท้าย keyframe prompt ทุกช็อต (STYLE):**
-  `dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, rich textures, shot on 35mm film, photorealistic`
+  `vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, rich textures, shot on 35mm film, photorealistic`
 - **สถานที่ (ALLEY):** `a narrow dark alley at night, wet asphalt reflecting cold blue and faint red neon light, grimy brick walls, a green metal dumpster, steam rising from a vent`
 - **Damian:** `the young man from image 1 (wavy blond hair, blue eyes, beige trench coat, cream knit sweater, dark jeans)`
 - **Kairo:** `the man from image 2 (slicked black hair, sharp features, black three-piece suit, black shirt, dark red tie)`
