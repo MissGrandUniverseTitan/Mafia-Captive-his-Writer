@@ -1,0 +1,38 @@
+{
+  "episode": "ep01",
+  "size": [480, 832],
+  "length": 81,
+  "style": "vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, photorealistic",
+  "shots": [
+    {
+      "id": "S1-1",
+      "refs": ["damian_full_back.png", "S1-2_keyframe.png"],
+      "keyframe_prompt": "The young man from image 1 walks cautiously into the alley from image 2, seen from behind at shoulder height, body slightly hunched, glancing to the side",
+      "motion_prompt": "The camera tracks slowly behind the young man as he sneaks forward along the wet alley, puddles ripple under his boots, steam drifts"
+    },
+    {
+      "id": "S1-2",
+      "keyframe": "S1-2_keyframe.png",
+      "seeds": [358075559139979],
+      "motion_prompt": "Static camera. The young man hides behind the dumpster, peeks out and thinking to himself with a very small excited smile (keep this secret with himself) Just smil not push any action only stare in his front, his breath visible in the cold air, steam drifts slowly"
+    },
+    {
+      "id": "S1-3",
+      "refs": ["kairo_full_front.png", "S1-2_keyframe.png"],
+      "keyframe_prompt": "The man from image 1 stands alone far down the alley from image 2 under a single flickering light, hands in pockets, calm and dangerous, full-body shot, slight low angle",
+      "motion_prompt": "Static camera. The man in the black suit stands still and slowly raises his head, his cold eyes staring ahead, the overhead light flickers, steam drifts around his legs"
+    },
+    {
+      "id": "S1-4",
+      "refs": ["damian_face_front.png", "S1-2_keyframe.png"],
+      "keyframe_prompt": "Close-up of the young man from image 1 hiding behind the green dumpster from image 2, writing quickly in a small notebook with a pen, eyes focused, face lit by faint neon",
+      "motion_prompt": "Slow push in toward his face. He scribbles notes quickly, glances up briefly then back down at the notebook"
+    },
+    {
+      "id": "S1-5",
+      "refs": ["S1-2_keyframe.png"],
+      "keyframe_prompt": "Remove the young man. Show the empty alley from image 1, wet gritty ground, puddles reflecting neon, steam rising, wide shot looking down the alley",
+      "motion_prompt": "Slow horizontal pan across the empty wet alley, water drips from a pipe, steam rises, neon reflections shimmer in the puddles"
+    }
+  ]
+}
