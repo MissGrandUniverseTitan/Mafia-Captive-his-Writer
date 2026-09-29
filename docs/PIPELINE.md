@@ -68,6 +68,16 @@ WITH_QWEN_EDIT=1 WITH_QWEN_IMAGE=1 bash setup_runpod.sh
 
 ---
 
+### 2.1 แนะนำ: ใช้ Network Volume (แก้ปัญหาย้าย Pod / พื้นที่เต็ม)
+
+1. Storage → Network Volumes → New: เลือก **datacenter ที่มีทั้ง RTX 4090 และ L40/A100** · 150GB · ชื่อ `mafia-vol` (~$0.07/GB/เดือน)
+2. Deploy → เลือก Network Volume `mafia-vol` → GPU 4090 → template PyTorch 2.8 → Container 30GB → ports `8888,8188` → mount `/workspace`
+3. รัน `setup_runpod.sh` ตามข้อ 2
+4. ย้ายงานจาก Pod เดิม: `tar czf carry.tgz datasets workflows ComfyUI/input ComfyUI/output ep01_scene1.json && runpodctl send carry.tgz` → Pod ใหม่ `runpodctl receive <code> && tar xzf carry.tgz`
+5. Pod เทรน LoRA ต่อ Network Volume เดียวกันได้ → ชุดภาพ/LoRA อยู่ที่เดียวกัน ไม่ต้องส่งไฟล์ไปมา
+
+> ส่งไฟล์ใหญ่ (LoRA 576MB) ใช้ `runpodctl send/receive` ดีกว่าอัปโหลดผ่าน Jupyter และเช็กขนาดไฟล์ทุกครั้ง (`ls -l`) — เคยได้ไฟล์ 0 byte เพราะอัปโหลดตอน Volume เต็ม
+
 ## 3. ตัวละคร
 
 1. ตัด character sheet เป็นภาพแยก → `characters/` (หน้าตรง, หน้าด้านข้าง, เต็มตัว หน้า/ข้าง/หลัง) — ตัดตัวหนังสือ/แถบสี/ลายน้ำออก
@@ -180,6 +190,7 @@ python3 make_dataset.py kairo --per 2 && python3 make_dataset.py damian --per 2
 | ดาวน์โหลดโมเดลไม่สำเร็จ / ComfyUI ไม่ตอบ | Volume 100GB เต็ม (`df` ไม่โชว์โควตาจริง) | ขยาย Volume ≥150GB, ลบ `/workspace/.cache/pip` |
 | GPU 48GB เต็ม | คนใช้เยอะ | ลอง Secure/Community, รุ่นอื่น (L40, RTX 6000 Ada, A100) |
 | LoRA หายตอน Pod เทรนหยุด | AI Toolkit เก็บไว้ใน `/app` (ดิสก์เครื่อง) | ตั้ง `training_folder: /mnt/output` หรือคัดลอกไป `/mnt` |
+| LoRA ขึ้น "safetensors header is incomplete" | อัปโหลดตอน Volume เต็ม ได้ไฟล์ 0 byte | เช็ก `ls -l` ให้ ~576MB, ส่งใหม่ด้วย `runpodctl` |
 | ช่องเลือกไฟล์ใน Load Image ไม่อัปเดต | ComfyUI ไม่ refresh เอง | กด `R` หรือ F5 |
 
 ---
