@@ -90,7 +90,7 @@ if [[ "${WITH_QWEN_IMAGE:-0}" == "1" ]]; then
     "diffusion_models/qwen_image_fp8_e4m3fn.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors"
     "text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors"
     "vae/qwen_image_vae.safetensors|$QHF/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors"
-    "loras/Qwen-Image-Lightning-8steps-V1.1.safetensors|https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors"
+    "loras/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors|https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors"
   )
 fi
 
