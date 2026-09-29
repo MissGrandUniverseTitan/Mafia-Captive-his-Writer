@@ -145,8 +145,23 @@ def build_keyframe(base, shot, style, seed):
     wf[pos]["inputs"]["prompt"] = f"{shot['keyframe_prompt']}, {style}"
     for k in ks:
         wf[k]["inputs"]["seed"] = seed
+    for i, lora in enumerate(shot.get("loras", [])):
+        add_lora(wf, f"char_lora_{i}", lora)
     set_output_prefix(wf, f"keyframes/{shot['id']}")
     return wf
+
+
+def add_lora(wf, node_id, lora):
+    """แทรก LoraLoaderModelOnly ต่อจาก UNETLoader (ทุกอย่างที่เคยรับ MODEL จาก UNET จะรับจาก LoRA แทน)"""
+    unet = nodes_of(wf, "UNETLoader")
+    if not unet:
+        sys.exit("ไม่เจอ UNETLoader ใน workflow — ใส่ LoRA ไม่ได้")
+    src = unet[0]
+    for cid, key in consumers(wf, src):
+        wf[cid]["inputs"][key] = [node_id, 0]
+    name, _, strength = lora.partition(":")
+    wf[node_id] = {"class_type": "LoraLoaderModelOnly",
+                   "inputs": {"model": [src, 0], "lora_name": name, "strength_model": float(strength or 1.0)}}
 
 
 # ---------- วิดีโอ (Wan 2.2 I2V) ----------

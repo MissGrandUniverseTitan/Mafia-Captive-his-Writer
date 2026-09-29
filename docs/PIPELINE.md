@@ -164,7 +164,7 @@ python3 make_dataset.py kairo --per 2 && python3 make_dataset.py damian --per 2
 - ComfyUI: template **Qwen-Image** → เพิ่ม **LoraLoaderModelOnly** ต่อระหว่าง Load Diffusion Model กับกล่องถัดไป → strength 1.0 → พรอมต์ขึ้นต้นด้วย trigger word
 - ส่งไฟล์ระหว่าง Pod/เครื่อง: `runpodctl send <file>` → อีกฝั่ง `runpodctl receive <code>`
 
-สถานะ: Kairo ✅ (step 500–2000, ทดสอบแล้ว step 2000 ใช้ได้ — ดู `characters/tests.md`) · Damian ⏳
+สถานะ: Kairo ✅ (step 500–2000, ทดสอบแล้ว step 2000 ใช้ได้ — ดู `characters/tests.md`) · Damian ✅ (step 2000 ทดสอบแล้วใช้ได้) · ใส่ LoRA ใน keyframe ได้ด้วยฟิลด์ `"loras": ["<file>:<strength>"]` ใน shot JSON (ใช้กับ Qwen Edit ได้เลย)
 
 ---
 
@@ -197,7 +197,7 @@ python3 make_dataset.py kairo --per 2 && python3 make_dataset.py damian --per 2
 
 ## 9. ขั้นต่อไป (TODO)
 
-- [ ] เทรน LoRA Damian
+- [x] เทรน LoRA Damian
 - [ ] ขยาย Volume / ย้ายไป Network Volume แล้วติดตั้ง Qwen-Image
 - [ ] ทดสอบ LoRA → ปรับ `render_shots.py` ให้สร้าง keyframe ด้วย Qwen-Image + LoRA
 - [ ] เรนเดอร์วิดีโอ Scene 1 (480×832) + เลือก seed
