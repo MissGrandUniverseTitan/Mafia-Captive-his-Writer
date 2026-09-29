@@ -164,7 +164,7 @@ python3 make_dataset.py kairo --per 2 && python3 make_dataset.py damian --per 2
 - ComfyUI: template **Qwen-Image** → เพิ่ม **LoraLoaderModelOnly** ต่อระหว่าง Load Diffusion Model กับกล่องถัดไป → strength 1.0 → พรอมต์ขึ้นต้นด้วย trigger word
 - ส่งไฟล์ระหว่าง Pod/เครื่อง: `runpodctl send <file>` → อีกฝั่ง `runpodctl receive <code>`
 
-สถานะ: Kairo ✅ (step 500–2000) · Damian ⏳
+สถานะ: Kairo ✅ (step 500–2000, ทดสอบแล้ว step 2000 ใช้ได้ — ดู `characters/tests.md`) · Damian ⏳
 
 ---
 
