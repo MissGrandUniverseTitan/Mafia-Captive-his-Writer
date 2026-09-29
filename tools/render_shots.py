@@ -77,7 +77,47 @@ def load_workflow(filename, marker):
             path.write_text(json.dumps(wf, indent=1))
             print(f"  ดึง workflow จากประวัติ ComfyUI -> {path}")
             return wf
+    if marker == "WanImageToVideo":
+        print("  ไม่เจอ workflow Wan ในประวัติ — ใช้ workflow Wan 2.2 I2V + LightX2V 4-step ที่ติดมากับสคริปต์")
+        return default_wan_workflow()
     sys.exit(f"ไม่มี {path} และไม่เจองาน {marker} ในประวัติ — กด Run workflow นั้นใน ComfyUI สัก 1 ครั้งก่อน")
+
+
+WAN_NEGATIVE = ("色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，"
+                "多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走, "
+                "twisted neck, distorted neck, deformed face")
+
+
+def default_wan_workflow():
+    """Wan 2.2 14B I2V แบบ 2 expert (high/low noise) + LightX2V 4-step — ตามโครง template ทางการของ ComfyUI"""
+    return {
+        "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors", "weight_dtype": "default"}},
+        "2": {"class_type": "UNETLoader", "inputs": {"unet_name": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors", "weight_dtype": "default"}},
+        "3": {"class_type": "LoraLoaderModelOnly", "inputs": {"model": ["1", 0], "strength_model": 1.0,
+              "lora_name": "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors"}},
+        "4": {"class_type": "LoraLoaderModelOnly", "inputs": {"model": ["2", 0], "strength_model": 1.0,
+              "lora_name": "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors"}},
+        "5": {"class_type": "ModelSamplingSD3", "inputs": {"model": ["3", 0], "shift": 5.0}},
+        "6": {"class_type": "ModelSamplingSD3", "inputs": {"model": ["4", 0], "shift": 5.0}},
+        "7": {"class_type": "CLIPLoader", "inputs": {"clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors", "type": "wan", "device": "default"}},
+        "8": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["7", 0], "text": ""}},
+        "9": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["7", 0], "text": WAN_NEGATIVE}},
+        "10": {"class_type": "VAELoader", "inputs": {"vae_name": "wan_2.1_vae.safetensors"}},
+        "11": {"class_type": "LoadImage", "inputs": {"image": "S1-2_keyframe.png"}},
+        "12": {"class_type": "WanImageToVideo", "inputs": {"positive": ["8", 0], "negative": ["9", 0], "vae": ["10", 0],
+               "start_image": ["11", 0], "width": 480, "height": 832, "length": 81, "batch_size": 1}},
+        "13": {"class_type": "KSamplerAdvanced", "inputs": {"model": ["5", 0], "positive": ["12", 0], "negative": ["12", 1],
+               "latent_image": ["12", 2], "add_noise": "enable", "noise_seed": 1, "steps": 4, "cfg": 1.0,
+               "sampler_name": "euler", "scheduler": "simple", "start_at_step": 0, "end_at_step": 2,
+               "return_with_leftover_noise": "enable"}},
+        "14": {"class_type": "KSamplerAdvanced", "inputs": {"model": ["6", 0], "positive": ["12", 0], "negative": ["12", 1],
+               "latent_image": ["13", 0], "add_noise": "disable", "noise_seed": 0, "steps": 4, "cfg": 1.0,
+               "sampler_name": "euler", "scheduler": "simple", "start_at_step": 2, "end_at_step": 10000,
+               "return_with_leftover_noise": "disable"}},
+        "15": {"class_type": "VAEDecode", "inputs": {"samples": ["14", 0], "vae": ["10", 0]}},
+        "16": {"class_type": "CreateVideo", "inputs": {"images": ["15", 0], "fps": 16}},
+        "17": {"class_type": "SaveVideo", "inputs": {"video": ["16", 0], "filename_prefix": "video/wan", "format": "auto", "codec": "auto"}},
+    }
 
 
 # ---------- ค้นหา node ใน workflow แบบ API ----------
