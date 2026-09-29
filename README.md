@@ -10,10 +10,14 @@
 | `runpod/` | สคริปต์ติดตั้ง ComfyUI + Wan 2.2 (+ Qwen Image Edit) บน RunPod |
 | `azure/` | สคริปต์สร้าง GPU VM บน Azure (ทางเลือก) |
 | `seedance/` | CLI เรียก Seedance ผ่าน BytePlus ModelArk API (จ่ายตามใช้จริง) |
+| `tools/` | `render_shots.py` (เรนเดอร์หลายช็อตคำสั่งเดียว), `make_dataset.py` (ชุดภาพเทรน LoRA) |
+| `docs/` | คู่มือขั้นตอนทั้งหมด |
 
 ## Pipeline
 1. ภาพอ้างอิงตัวละคร → **Qwen Image Edit 2509** → keyframe ของแต่ละช็อต
 2. keyframe → **Wan 2.2 14B I2V** → วิดีโอช็อตละ ~5 วินาที
 3. เสียงพากย์ (TTS) + lip-sync → ตัดต่อ / VFX / ซับ ใน DaVinci Resolve
+
+คู่มือเต็ม (ทุกขั้นตอน + บทเรียน): [`docs/PIPELINE.md`](docs/PIPELINE.md)
 
 เริ่มที่ [`runpod/setup_runpod.sh`](runpod/setup_runpod.sh) และ [`episodes/ep01_shotlist.md`](episodes/ep01_shotlist.md)
