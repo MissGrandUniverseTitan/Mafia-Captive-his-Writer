@@ -27,8 +27,25 @@ nvidia-smi
 apt-get update -qq && apt-get install -y -qq git ffmpeg aria2 python3-venv >/dev/null
 
 cd $WS
+# ซ่อมหลังย้าย Pod: ถ้าโค้ด ComfyUI ไม่ครบ ให้ clone ใหม่โดยเก็บ models/input/output/user ไว้
+if [[ -d ComfyUI && ! -f ComfyUI/comfy/options.py ]]; then
+  echo ">> โค้ด ComfyUI ไม่ครบ (อาจเกิดจากการย้าย Pod) — ติดตั้งโค้ดใหม่ เก็บงานเดิมไว้"
+  mkdir -p $WS/_keep
+  for d in models input output user; do [[ -d ComfyUI/$d ]] && mv ComfyUI/$d $WS/_keep/$d; done
+  rm -rf ComfyUI
+  git clone https://github.com/comfyanonymous/ComfyUI.git
+  for d in models input output user; do
+    [[ -d $WS/_keep/$d ]] && { rm -rf ComfyUI/$d; mv $WS/_keep/$d ComfyUI/$d; }
+  done
+  rmdir $WS/_keep 2>/dev/null || true
+fi
 [[ -d ComfyUI ]] || git clone https://github.com/comfyanonymous/ComfyUI.git
 cd "$APP"
+# ซ่อม venv ที่พัง (import torch ไม่ได้) ด้วยการสร้างใหม่
+if [[ -d .venv ]] && ! .venv/bin/python -c "import torch" 2>/dev/null; then
+  echo ">> Python environment เสีย — สร้างใหม่"
+  rm -rf .venv
+fi
 [[ -d .venv ]] || python3 -m venv .venv
 source .venv/bin/activate
 pip install -q --upgrade pip
@@ -81,9 +98,9 @@ failed=()
 for entry in "${URLS[@]}"; do
   f="${entry%%|*}"; url="${entry#*|}"
   dest="models/$f"
-  [[ -s "$dest" ]] && { echo "มีแล้ว: $f"; continue; }
   mkdir -p "$(dirname "$dest")"
-  echo ">> ดาวน์โหลด $f"
+  # -c: ไฟล์ที่ครบแล้วจะข้ามทันที ไฟล์ที่ขาดหาย/ไม่ครบ (เช่นหลังย้าย Pod) จะโหลดต่อให้
+  echo ">> ตรวจ/ดาวน์โหลด $f"
   aria2c -q -x 16 -s 16 -c -d "$(dirname "$dest")" -o "$(basename "$dest")" "$url" || failed+=("$f")
 done
 if (( ${#failed[@]} )); then
