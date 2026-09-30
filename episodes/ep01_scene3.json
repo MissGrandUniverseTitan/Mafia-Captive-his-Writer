@@ -1,0 +1,64 @@
+{
+  "episode": "ep01",
+  "size": [
+    480,
+    832
+  ],
+  "length": 81,
+  "style": "vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, photorealistic",
+  "shots": [
+    {
+      "id": "S3-1",
+      "refs": [
+        "kairo_face_front.png",
+        "S1-2_keyframe.png",
+        "kairo_full_front.png"
+      ],
+      "loras": [
+        "kairo_qwen_lora_000002000.safetensors:1.0"
+      ],
+      "keyframe_prompt": "k41ro man, the man from image 1 (messy jet-black hair with loose strands over his forehead, warm tan olive skin, sharp jawline, black three-piece suit, dark red tie) strikes a gang member in a dark hoodie with a swift precise punch in the alley from image 2, the attacker falling backward, dynamic medium shot. Keep his face and hairstyle exactly the same as image 1",
+      "motion_prompt": "The camera tracks as the man in the black suit knocks out the attacker with one swift strike, the attacker collapses onto the wet ground"
+    },
+    {
+      "id": "S3-2",
+      "refs": [
+        "kairo_face_profile.png",
+        "damian_face_front.png",
+        "S1-2_keyframe.png"
+      ],
+      "keyframe_prompt": "The man from image 1 (messy black hair, tan skin, black suit, dark red tie) kneels on the wet ground of the alley from image 3 beside the young man from image 2 (wavy dirty-blond hair, beige trench coat) who lies unconscious with eyes closed and a bleeding arm, the kneeling man looking down at his face, medium shot. Keep both men's faces and hair exactly the same as their reference images",
+      "motion_prompt": "Static camera. The man in the black suit kneels slowly and gently turns the unconscious young man's face toward the light, rain falling softly"
+    },
+    {
+      "id": "S3-3",
+      "refs": [
+        "kairo_face_front.png",
+        "S1-2_keyframe.png"
+      ],
+      "loras": [
+        "kairo_qwen_lora_000002000.safetensors:1.0"
+      ],
+      "keyframe_prompt": "Extreme close-up of k41ro man, the man from image 1 (messy jet-black hair with loose strands over his forehead, warm tan olive skin, sharp jawline, black three-piece suit, dark red tie) in the alley from image 2, intense dark eyes filled with recognition and longing, faint neon light on his cheekbones, rain on his face. Keep his face and hairstyle exactly the same as image 1",
+      "motion_prompt": "Slow push in toward his eyes. His cold expression softens into stunned recognition, his lips part as he whispers"
+    },
+    {
+      "id": "S3-4",
+      "refs": [
+        "kairo_full_front.png",
+        "damian_full_front.png",
+        "S1-2_keyframe.png"
+      ],
+      "keyframe_prompt": "The man from image 1 (messy black hair, black three-piece suit, dark red tie) stands in the alley from image 3 carefully carrying the unconscious young man from image 2 (wavy dirty-blond hair, beige trench coat) in his arms, the young man's head resting against his chest, medium shot. Keep both men's faces, hair and clothes exactly the same as their reference images",
+      "motion_prompt": "Slow pull out. The man in the black suit carries the young man protectively and walks toward the alley exit, steam drifting around them"
+    },
+    {
+      "id": "S3-5",
+      "refs": [
+        "S1-2_keyframe.png"
+      ],
+      "keyframe_prompt": "Replace the scene with a dark wet city street at night just outside the alley from image 1, a sleek black luxury sedan with glowing red taillights, rear three-quarter view, no people visible",
+      "motion_prompt": "The camera tracks as the black car pulls away and drives into the dark night, taillights streaking across the wet road"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "episode": "ep01",
+  "size": [
+    480,
+    832
+  ],
+  "length": 81,
+  "style": "vertical composition, subject centered, dark cinematic realism, neo-noir, moody low-key lighting, high contrast, deep shadows, photorealistic",
+  "shots": [
+    {
+      "id": "S2-1",
+      "refs": [
+        "kairo_full_back.png",
+        "S1-2_keyframe.png"
+      ],
+      "loras": [
+        "kairo_qwen_lora_000002000.safetensors:1.0"
+      ],
+      "keyframe_prompt": "k41ro man, the man from image 1 (messy jet-black hair with loose strands over his forehead, warm tan olive skin, sharp jawline, black three-piece suit, dark red tie) seen from behind in the foreground of the alley from image 2, while a rough gang member in a dark hoodie charges out of the shadows toward him gripping a tactical knife, wide shot. Keep his hair and suit exactly the same as image 1",
+      "motion_prompt": "Fast push in. The gang member in the hoodie sprints toward the man in the black suit, raising the knife, splashing through puddles"
+    },
+    {
+      "id": "S2-2",
+      "refs": [
+        "damian_face_front.png",
+        "S1-2_keyframe.png"
+      ],
+      "loras": [
+        "damian_qwen_lora_000002000.safetensors:1.0"
+      ],
+      "keyframe_prompt": "Extreme close-up of d4mian man, the young man from image 1 (voluminous tousled wavy dirty-blond hair, ear-length messy curls, fair skin, blue eyes, beige trench coat, cream knit sweater) peeking from behind the green dumpster from image 2, eyes wide in shock, mouth open mid-gasp. Keep his face and hairstyle exactly the same as image 1",
+      "motion_prompt": "Static camera. The young man gasps in shock, his eyes widen and he shouts a warning, breath visible in the cold air"
+    },
+    {
+      "id": "S2-3",
+      "refs": [
+        "damian_full_side.png",
+        "S1-2_keyframe.png"
+      ],
+      "loras": [
+        "damian_qwen_lora_000002000.safetensors:1.0"
+      ],
+      "keyframe_prompt": "d4mian man, the young man from image 1 (voluminous tousled wavy dirty-blond hair, ear-length messy curls, fair skin, blue eyes, beige trench coat, cream knit sweater) bursts out from behind the green dumpster into the alley from image 2, running forward, trench coat flaring, dynamic medium shot. Keep his face and hairstyle exactly the same as image 1",
+      "motion_prompt": "The camera tracks as the young man runs forward out of his hiding spot, his trench coat flaring, splashing through puddles"
+    },
+    {
+      "id": "S2-4",
+      "refs": [
+        "damian_full_front.png",
+        "kairo_full_back.png",
+        "S1-2_keyframe.png"
+      ],
+      "keyframe_prompt": "The young man from image 1 (wavy dirty-blond hair, beige trench coat) throws himself in front of the man from image 2 (black suit, messy black hair) in the alley from image 3, arms spread to shield him, a gang member in a dark hoodie swinging a tactical knife toward the young man's arm, medium-wide shot. Keep both men's faces, hair and clothes exactly the same as their reference images",
+      "motion_prompt": "Static camera. The young man steps in front of the man in the black suit, the attacker slashes, the young man flinches and clutches his bleeding arm, staggering back"
+    },
+    {
+      "id": "S2-5",
+      "refs": [
+        "S1-2_keyframe.png"
+      ],
+      "keyframe_prompt": "Replace the scene with an extreme close-up of a blood-stained tactical knife lying on the wet asphalt of the alley from image 1, puddle reflecting red and blue neon, shallow depth of field, no people",
+      "motion_prompt": "Static camera. Rain ripples the puddle around the fallen knife, a drop of blood spreads slowly in the water, neon reflections shimmer"
+    }
+  ]
+}
